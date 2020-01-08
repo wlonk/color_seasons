@@ -66,7 +66,7 @@
     "hard-source-webpack-plugin": "0.3.11",
     "img-loader": "2.0.0",
     "jinja-loader": "0.0.8",
-    "jquery": "3.2.1",
+    "jquery": "3.4.1",
     "jquery-django-messages-ui": "2.0.2",
     "jquery-dotimeout": "github:oddbird/jquery-dotimeout#v1.0.0",
     "jquery-form": "4.2.1",
