@@ -1,0 +1,84 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/color_seasons
+    docker:
+      - image: python:3.6.0
+        environment:
+          DJANGO_SECRET_KEY: test-secret-key
+          DJANGO_DEBUG: False
+          DJANGO_SETTINGS_MODULE: color_seasons.settings.test
+          PYTHONPATH: src
+          DATABASE_URL: postgresql://ubuntu@localhost/circle_test
+          HASHID_FIELD_SALT: test-hash-salt
+      - image: postgres:9.6.2
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      - restore_cache:
+          key: color_seasons-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Node & Yarn
+          command: ./bin/unpack-node
+      - run:
+          name: Install Dependencies
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            yarn
+            pip install -r requirements.txt
+      - save_cache:
+          key: color_seasons-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Run Database Migrations
+          command: python src/manage.py migrate --no-input
+      - run:
+          name: Compile Front-End Assets
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/gulp webpack-prod
+      - run:
+          name: Lint Python
+          command: flake8 src/
+      - run:
+          name: Lint Sass
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/gulp sasslint
+      - run:
+          name: Lint JS
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/gulp eslint
+      - run:
+          name: Test Python
+          command: py.test --junitxml=pycov/pytest-junit.xml
+      - run:
+          name: Test Sass
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/gulp sasstest
+      - run:
+          name: Test JS
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/karma start --reporters dots,coverage,junit --browsers PhantomJS
+      - run:
+          name: Check JS Test Coverage
+          command: |
+            export PATH=~/color_seasons/node/bin:$PATH
+            ./node_modules/.bin/istanbul check-coverage --root jscov/ --statements=100 --functions=100 --branches=100 --lines=100
+      - store_artifacts:
+          path: htmlcov
+          destination: py-reports
+      - store_artifacts:
+          path: jscov
+          destination: js-reports
+      - store_test_results:
+          path: jscov
+      - store_test_results:
+          path: pycov

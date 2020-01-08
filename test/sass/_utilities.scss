@@ -1,0 +1,28 @@
+// Utility Tests
+// =============
+
+@include test-module('Shadow [mixin]') {
+  @include test('Default settings') {
+    @include assert {
+      @include output {
+        @include shadow;
+      }
+
+      @include expect {
+        box-shadow: 0 size('shadow') size('half-shim') color('shadow-light');
+      }
+    }
+  }
+
+  @include test('Alternate options') {
+    @include assert {
+      @include output {
+        @include shadow('inset', 'negative', 'highlight');
+      }
+
+      @include expect {
+        box-shadow: 0 negative('shadow') size('half-shim') color('select') inset;
+      }
+    }
+  }
+}
