@@ -1,1 +1,1 @@
-web: gunicorn color_seasons:app --preload
+web: gunicorn color_seasons.wsgi:application --preload
