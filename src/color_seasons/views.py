@@ -1,14 +1,26 @@
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 
-from .models import Color, Season
-from .serializers import ColorSerializer, SeasonSerializer
+from . import models, serializers
+
+User = get_user_model()
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+
+class HexColorViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.HexColor.objects.all()
+    serializer_class = serializers.HexColorSerializer
 
 
 class ColorViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Color.objects.all()
-    serializer_class = ColorSerializer
+    queryset = models.Color.objects.all()
+    serializer_class = serializers.ColorSerializer
 
 
 class SeasonViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Season.objects.all()
-    serializer_class = SeasonSerializer
+    queryset = models.Season.objects.all()
+    serializer_class = serializers.SeasonSerializer

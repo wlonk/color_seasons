@@ -22,6 +22,8 @@ from . import views
 
 
 router = DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'hexcolors', views.HexColorViewSet)
 router.register(r'colors', views.ColorViewSet)
 router.register(r'seasons', views.SeasonViewSet)
 
