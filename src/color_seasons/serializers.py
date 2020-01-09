@@ -42,3 +42,14 @@ class SeasonSerializer(ModelSerializer):
             "name",
             "colors",
         )
+
+
+class HostSerializer(ModelSerializer):
+    class Meta:
+        model = models.Host
+        fields = (
+            "id",
+            "name",
+            "picture",
+            "season",
+        )

@@ -24,3 +24,8 @@ class ColorViewSet(viewsets.ModelViewSet):
 class SeasonViewSet(viewsets.ModelViewSet):
     queryset = models.Season.objects.all()
     serializer_class = serializers.SeasonSerializer
+
+
+class HostViewSet(viewsets.ModelViewSet):
+    queryset = models.Host.objects.all()
+    serializer_class = serializers.HostSerializer
