@@ -1,25 +1,35 @@
 Color Seasons
 =============
 
-Set up docker, per
-``https://store.docker.com/editions/community/docker-ce-desktop-mac``.
+To read from the API, you only need to issue ``GET`` requests::
 
-Copy the ``.env`` file::
+   GET /season/
 
-    mv env.example .env
+Reply::
 
-You can also edit ``.env``, if you have any values that you know should
-be different.
+   [
+     {
+       "id": 1,
+       "name": "Winter",
+       "colors": [1, 2]
+     }
+   ]
 
-Run::
+To edit the API, ``POST``, ``PUT`` and ``DELETE`` with the following
+header::
 
-    docker-compose up
+   Authorization: Token abc123...
 
-If you've made changes and they're not showing up, you may need to force
-a rebuild of the Docker images::
+With the appropriate token put in there.
 
-    docker-compose build --nocache
+Then, post things like::
 
-Access the running server at http://localhost/ or
-http://example.com.hexxie.com/ (these both point to
-127.0.0.1).
+   POST /season/
+
+   {
+     "name": "Summer",
+     "colors": [3, 4]
+   }
+
+where the numbers in ``"colors"`` are the IDs of the Color objects at
+the ``/color/`` endpoint.
