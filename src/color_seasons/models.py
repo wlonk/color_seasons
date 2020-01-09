@@ -17,4 +17,4 @@ class HexColor(models.Model):
 
 class Season(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    colors = models.ManyToManyField(Color, related_name="seasons")
+    colors = models.ManyToManyField(Color, related_name="seasons", blank=True)
