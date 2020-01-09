@@ -11,16 +11,16 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.UserSerializer
 
 
-class HexColorViewSet(viewsets.ReadOnlyModelViewSet):
+class HexColorViewSet(viewsets.ModelViewSet):
     queryset = models.HexColor.objects.all()
     serializer_class = serializers.HexColorSerializer
 
 
-class ColorViewSet(viewsets.ReadOnlyModelViewSet):
+class ColorViewSet(viewsets.ModelViewSet):
     queryset = models.Color.objects.all()
     serializer_class = serializers.ColorSerializer
 
 
-class SeasonViewSet(viewsets.ReadOnlyModelViewSet):
+class SeasonViewSet(viewsets.ModelViewSet):
     queryset = models.Season.objects.all()
     serializer_class = serializers.SeasonSerializer
