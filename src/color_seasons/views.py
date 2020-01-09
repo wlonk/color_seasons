@@ -16,9 +16,9 @@ class HexColorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.HexColorSerializer
 
 
-class ColorViewSet(viewsets.ModelViewSet):
-    queryset = models.Color.objects.all()
-    serializer_class = serializers.ColorSerializer
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerializer
 
 
 class SeasonViewSet(viewsets.ModelViewSet):

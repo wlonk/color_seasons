@@ -17,11 +17,16 @@ class HexColorAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.Color)
-class ColorAdmin(admin.ModelAdmin):
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(models.Season)
 class SeasonAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.Host)
+class HostAdmin(admin.ModelAdmin):
     pass

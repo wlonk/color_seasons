@@ -20,17 +20,19 @@ class HexColorSerializer(ModelSerializer):
         model = models.HexColor
         fields = (
             "id",
+            "name",
             "hex_code",
+            "category"
         )
 
 
-class ColorSerializer(ModelSerializer):
+class CategorySerializer(ModelSerializer):
     class Meta:
-        model = models.Color
+        model = models.Category
         fields = (
             "id",
             "name",
-            "hex_codes",
+            "colors",
         )
 
 
