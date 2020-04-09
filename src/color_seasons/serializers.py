@@ -53,5 +53,6 @@ class HostSerializer(ModelSerializer):
             "id",
             "name",
             "picture",
+            "happy_picture",
             "season",
         )

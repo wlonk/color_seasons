@@ -24,4 +24,5 @@ class Season(models.Model):
 class Host(models.Model):
     name = models.CharField(max_length=100, unique=True)
     picture = models.URLField()
+    happy_picture = models.URLField()
     season = models.ForeignKey('Season', on_delete=models.SET_NULL, null=True, related_name="hosts", blank=True)
